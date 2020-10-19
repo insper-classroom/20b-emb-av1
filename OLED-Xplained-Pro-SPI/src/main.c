@@ -1,8 +1,8 @@
 #include <asf.h>
 
-#include "gfx_mono_ug_2832hsweg04.h"
-#include "gfx_mono_text.h"
-#include "sysfont.h"
+//#include "gfx_mono_ug_2832hsweg04.h"
+//#include "gfx_mono_text.h"
+//#include "sysfont.h"
 
 /**
  * IOS
@@ -57,7 +57,7 @@ volatile char flag_rtt  = 0;
 void BUT1_callback(void);
 void BUT2_callback(void);
 void BUT3_callback(void);
-void genius_play(int seq[], int seq_len, int delay);
+int genius_play(int seq[], int seq_len, int delay);
 int user_play(int seq[], int seq_len);
 
 /**************************************************************/
@@ -99,8 +99,9 @@ void init (void) {
 	board_init();
 	sysclk_init();
 	delay_init();
-	SysTick_Config(sysclk_get_cpu_hz() / 1000); // 1 ms
-	gfx_mono_ssd1306_init();
+//	SysTick_Config(sysclk_get_cpu_hz() / 1000); // 1 ms
+
+//	gfx_mono_ssd1306_init();
 
 	pmc_enable_periph_clk(BUT1_PIO_ID);
 	pmc_enable_periph_clk(BUT2_PIO_ID);
@@ -136,13 +137,13 @@ void init (void) {
 	pio_handler_set(BUT3_PIO, BUT3_PIO_ID, BUT3_PIO_IDX_MASK, PIO_IT_EDGE, BUT3_callback);
 
   pmc_enable_periph_clk(LED1_PIO_ID);
-	pio_set_output(LED1_PIO, LED1_IDX_MASK, estado, 0, 0);
+	pio_set_output(LED1_PIO, LED1_IDX_MASK, 1, 0, 0);
 
   pmc_enable_periph_clk(LED2_PIO_ID);
-	pio_set_output(LED2_PIO, LED2_IDX_MASK, estado, 0, 0);
+	pio_set_output(LED2_PIO, LED2_IDX_MASK, 1, 0, 0);
 
   pmc_enable_periph_clk(LED3_PIO_ID);
-	pio_set_output(LED3_PIO, LED3_IDX_MASK, estado, 0, 0);
+	pio_set_output(LED3_PIO, LED3_IDX_MASK, 1, 0, 0);
 }
 
 void RTT_init(uint16_t pllPreScale, uint32_t IrqNPulses) {
